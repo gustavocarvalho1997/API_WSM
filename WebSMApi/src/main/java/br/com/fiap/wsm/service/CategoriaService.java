@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import br.com.fiap.wsm.dao.CategoriaDao;
+import br.com.fiap.wsm.exception.IdNotFoundException;
 import br.com.fiap.wsm.factory.ConnectionFactory;
 import br.com.fiap.wsm.model.Categoria;
 
@@ -28,4 +29,10 @@ public class CategoriaService {
 		List<Categoria> lista = categoriaDao.listar();
 		return lista;
 	}//Listar FIM
+	
+	//pesquisarPorId INICIO
+	public Categoria pesquisarPorId(int id) throws SQLException, IdNotFoundException {
+		Categoria categoria = categoriaDao.pesquisarPorId(id);
+		return categoria;
+	}//pesquisarPorId FIM
 }//CLASS
