@@ -1,6 +1,7 @@
 package br.com.fiap.wsm.service;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -40,4 +41,9 @@ public class CategoriaService {
 	public void atualizar(Categoria categoria) throws SQLException, IdNotFoundException {
 		categoriaDao.atualizar(categoria);
 	}//Atualizar FIM
+	
+	//Deletar INICIO
+	public void deletar(int id) throws SQLException, IdNotFoundException {
+		categoriaDao.deletar(id);
+	}
 }//CLASS
