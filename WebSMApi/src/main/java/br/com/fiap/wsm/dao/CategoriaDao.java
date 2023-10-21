@@ -17,6 +17,7 @@ public class CategoriaDao {
 	private static final String CADASTRAR = "INSERT INTO T_WSM_CATEGORIA (ID_CATEGORIA, NM_CATEGORIA, ST_PERECIVEL) VALUES (SEQ_WSM_CATEGORIA.NEXTVAL, ?, ?)";
 	private static final String LISTAR = "SELECT * FROM T_WSM_CATEGORIA ORDER BY ID_CATEGORIA";
 	private static final String PESQ_ID = "SELECT * FROM T_WSM_CATEGORIA WHERE ID_CATEGORIA = ?";
+	private static final String ATUALIZAR = "UPDATE T_WSM_CATEGORIA SET NM_CATEGORIA = ?, ST_PERECIVEL = ? WHERE ID_CATEGORIA = ?";
 	// Construtor
 	public CategoriaDao(Connection conn) {
 		this.conn = conn;
@@ -63,4 +64,15 @@ public class CategoriaDao {
 		Categoria categoria = parse(rs);
 		return categoria;
 	}//pesquisarPorId FIM
+	
+	//Atualizar INICIO
+	public void atualizar(Categoria categoria) throws SQLException, IdNotFoundException {
+		pesquisarPorId(categoria.getId());
+		PreparedStatement stm = conn.prepareStatement(ATUALIZAR);
+		stm.setString(1, categoria.getNome());
+		stm.setBoolean(2, categoria.isPerecivel());
+		stm.setInt(3, categoria.getId());
+		
+		stm.executeUpdate();
+	}//Atualizar FIM
 }//CLASS
