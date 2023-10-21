@@ -7,6 +7,7 @@ import br.com.fiap.wsm.exception.IdNotFoundException;
 import br.com.fiap.wsm.model.Categoria;
 import br.com.fiap.wsm.service.CategoriaService;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
@@ -71,4 +72,16 @@ public class CategoriaResource {
 			return Response.status(Status.NOT_FOUND).build();
 		}
 	}//Atualizar FIM
+	
+	//Deletar INICIO
+	@DELETE
+	@Path("/{id}")
+	public Response remover(@PathParam("id") int id) throws SQLException {
+		try {
+			service.deletar(id);
+			return Response.noContent().build();
+		} catch (IdNotFoundException e) {
+			return Response.status(Status.NOT_FOUND).build();
+		}
+	}//Deletar FIM
 }//CLASS
