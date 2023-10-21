@@ -35,4 +35,9 @@ public class CategoriaService {
 		Categoria categoria = categoriaDao.pesquisarPorId(id);
 		return categoria;
 	}//pesquisarPorId FIM
+	
+	//Atualizar INICIO
+	public void atualizar(Categoria categoria) throws SQLException, IdNotFoundException {
+		categoriaDao.atualizar(categoria);
+	}//Atualizar FIM
 }//CLASS
