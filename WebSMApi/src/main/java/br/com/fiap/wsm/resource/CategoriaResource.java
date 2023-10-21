@@ -9,6 +9,7 @@ import br.com.fiap.wsm.service.CategoriaService;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -56,4 +57,18 @@ public class CategoriaResource {
 			return Response.status(Status.NOT_FOUND).build();
 		}
 	}//busca FIM
+	
+	//Atualizar INICIO
+	@PUT
+	@Path("/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response atualizar(Categoria categoria, @PathParam("id") int id) throws SQLException {
+		try {
+			categoria.setId(id);
+			service.atualizar(categoria);
+			return Response.ok().build();
+		} catch (IdNotFoundException e) {
+			return Response.status(Status.NOT_FOUND).build();
+		}
+	}//Atualizar FIM
 }//CLASS
