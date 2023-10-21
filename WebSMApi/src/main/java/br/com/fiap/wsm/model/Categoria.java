@@ -2,7 +2,6 @@ package br.com.fiap.wsm.model;
 
 import lombok.Data;
 
-@SuppressWarnings("unused")
 @Data
 public class Categoria {
 	// Atributos

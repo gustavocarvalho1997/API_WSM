@@ -1,6 +1,7 @@
 package br.com.fiap.wsm.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -27,4 +28,11 @@ public class CategoriaDao {
 	}//Parse FIM
 	
 	//Cadastrar INICIO
+	public void cadastrar(Categoria categoria) throws SQLException {
+		PreparedStatement stm = conn.prepareStatement(CADASTRAR);
+		stm.setString(1, categoria.getNome());
+		stm.setBoolean(2, categoria.isPerecivel());
+		
+		stm.executeUpdate();
+	}//Cadastrar FIM
 }//CLASS
