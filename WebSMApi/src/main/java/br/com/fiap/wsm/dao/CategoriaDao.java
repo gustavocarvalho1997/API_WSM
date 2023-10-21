@@ -18,6 +18,7 @@ public class CategoriaDao {
 	private static final String LISTAR = "SELECT * FROM T_WSM_CATEGORIA ORDER BY ID_CATEGORIA";
 	private static final String PESQ_ID = "SELECT * FROM T_WSM_CATEGORIA WHERE ID_CATEGORIA = ?";
 	private static final String ATUALIZAR = "UPDATE T_WSM_CATEGORIA SET NM_CATEGORIA = ?, ST_PERECIVEL = ? WHERE ID_CATEGORIA = ?";
+	private static final String DELETAR = "DELETE FROM T_WSM_CATEGORIA WHERE ID_CATEGORIA = ?";
 	// Construtor
 	public CategoriaDao(Connection conn) {
 		this.conn = conn;
@@ -75,4 +76,13 @@ public class CategoriaDao {
 		
 		stm.executeUpdate();
 	}//Atualizar FIM
+	
+	//Deletar INICIO
+	public void deletar(int id) throws SQLException, IdNotFoundException {
+		pesquisarPorId(id);
+		PreparedStatement stm = conn.prepareStatement(DELETAR);
+		stm.setInt(1, id);
+		
+		stm.executeUpdate();
+	}//Deletar FIM
 }//CLASS
