@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.fiap.wsm.exception.IdNotFoundException;
 import br.com.fiap.wsm.model.Categoria;
 
 public class CategoriaDao {
@@ -50,4 +51,16 @@ public class CategoriaDao {
 		}
 		return lista;
 	}//Listar FIM
+	
+	//pesquisarPorId INICIO
+	public Categoria pesquisarPorId(int id) throws SQLException, IdNotFoundException {
+		PreparedStatement stm = conn.prepareStatement(PESQ_ID);
+		stm.setInt(1, id);
+		ResultSet rs = stm.executeQuery();
+		if(!rs.next()) {
+			throw new IdNotFoundException("Categoria não encontrada");
+		}
+		Categoria categoria = parse(rs);
+		return categoria;
+	}//pesquisarPorId FIM
 }//CLASS
