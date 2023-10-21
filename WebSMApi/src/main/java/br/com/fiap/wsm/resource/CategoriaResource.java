@@ -1,12 +1,15 @@
 package br.com.fiap.wsm.resource;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import br.com.fiap.wsm.model.Categoria;
 import br.com.fiap.wsm.service.CategoriaService;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -31,4 +34,11 @@ public class CategoriaResource {
 		builder.path(Integer.toString(categoria.getId()));
 		return Response.created(builder.build()).build();
 	}//Cadastrar FIM
+	
+	//Listar INICIO
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Categoria> lista() throws SQLException {
+		return service.listar();
+	}//Listar FIM
 }//CLASS
