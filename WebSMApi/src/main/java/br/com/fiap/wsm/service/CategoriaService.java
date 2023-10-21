@@ -2,6 +2,7 @@ package br.com.fiap.wsm.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import br.com.fiap.wsm.dao.CategoriaDao;
 import br.com.fiap.wsm.factory.ConnectionFactory;
@@ -18,7 +19,13 @@ public class CategoriaService {
 	}
 
 	//Cadastrar INICIO
-	public void cadastrar(Categoria categoria) throws ClassNotFoundException, SQLException{
+	public void cadastrar(Categoria categoria) throws SQLException{
 		categoriaDao.cadastrar(categoria);
 	}//Cadastrar FIM
+	
+	//Listar INICIO
+	public List<Categoria> listar() throws SQLException {
+		List<Categoria> lista = categoriaDao.listar();
+		return lista;
+	}//Listar FIM
 }//CLASS
