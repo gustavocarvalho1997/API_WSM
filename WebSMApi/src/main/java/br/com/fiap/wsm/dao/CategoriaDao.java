@@ -8,9 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.fiap.wsm.exception.IdNotFoundException;
+import br.com.fiap.wsm.interfaces.ICadastrarDao;
 import br.com.fiap.wsm.model.Categoria;
 
-public class CategoriaDao {
+public class CategoriaDao implements ICadastrarDao {
 	// Atributos
 	private Connection conn;
 	// Statements
@@ -34,6 +35,7 @@ public class CategoriaDao {
 	}//Parse FIM
 	
 	//Cadastrar INICIO
+	@Override
 	public void cadastrar(Categoria categoria) throws SQLException {
 		PreparedStatement stm = conn.prepareStatement(CADASTRAR);
 		stm.setString(1, categoria.getNome());
@@ -43,6 +45,7 @@ public class CategoriaDao {
 	}//Cadastrar FIM
 	
 	//Listar INICIO
+	@Override
 	public List<Categoria> listar() throws SQLException {
 		PreparedStatement stm = conn.prepareStatement(LISTAR);
 		ResultSet rs = stm.executeQuery();
@@ -55,6 +58,7 @@ public class CategoriaDao {
 	}//Listar FIM
 	
 	//pesquisarPorId INICIO
+	@Override
 	public Categoria pesquisarPorId(int id) throws SQLException, IdNotFoundException {
 		PreparedStatement stm = conn.prepareStatement(PESQ_ID);
 		stm.setInt(1, id);
@@ -67,6 +71,7 @@ public class CategoriaDao {
 	}//pesquisarPorId FIM
 	
 	//Atualizar INICIO
+	@Override
 	public void atualizar(Categoria categoria) throws SQLException, IdNotFoundException {
 		pesquisarPorId(categoria.getId());
 		PreparedStatement stm = conn.prepareStatement(ATUALIZAR);
@@ -78,6 +83,7 @@ public class CategoriaDao {
 	}//Atualizar FIM
 	
 	//Deletar INICIO
+	@Override
 	public void deletar(int id) throws SQLException, IdNotFoundException {
 		pesquisarPorId(id);
 		PreparedStatement stm = conn.prepareStatement(DELETAR);
