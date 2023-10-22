@@ -2,12 +2,14 @@ package br.com.fiap.wsm.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import br.com.fiap.wsm.dao.CategoriaDao;
 import br.com.fiap.wsm.dao.ProdutoDao;
 import br.com.fiap.wsm.exception.BadInfoException;
 import br.com.fiap.wsm.exception.IdNotFoundException;
 import br.com.fiap.wsm.factory.ConnectionFactory;
+import br.com.fiap.wsm.model.Categoria;
 import br.com.fiap.wsm.model.Produto;
 
 public class ProdutoService {
@@ -34,5 +36,22 @@ public class ProdutoService {
 		}
 		
 		produtoDao.cadastrar(produto);
-	}
+	}//Cadastrar FIM
+	
+	//Listar INICIO
+	public List<Produto> listar() throws SQLException {
+		List<Produto> listaProduto = produtoDao.listar();
+		List<Categoria> listaCategoria = categoriaDao.listar();
+		for(Produto produto : listaProduto) {
+			if(produto.getCategoria() != null) {
+				for(Categoria categoria : listaCategoria) {
+					if(produto.getCategoria().getId() == categoria.getId()) {
+						produto.setCategoria(categoria);
+						break;
+					}//IF
+				}//FOR CATEGORIA
+			}//IF
+		}//FOR PRODUTO
+		return listaProduto;
+	}//Listar FIM
 }//CLASS
