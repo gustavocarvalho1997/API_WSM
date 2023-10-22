@@ -11,6 +11,7 @@ import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
@@ -52,4 +53,17 @@ public class ProdutoResource {
 		return service.listar();
 	}
 	//Listar FIM
+	
+	//PesquisarPorId
+	@GET
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response busca(@PathParam("id") int id) throws ClassNotFoundException, SQLException {
+		try {
+			return Response.ok(service.pesquisarPorId(id)).build();
+		} catch (IdNotFoundException e) {
+			return Response.status(Status.NOT_FOUND).build();
+		}
+	}
+	//PesquisarPorId FIM
 }//CLASS
