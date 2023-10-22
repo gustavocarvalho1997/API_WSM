@@ -34,6 +34,18 @@ public class ProdutoService {
 		if(produto.getNome() == null || produto.getNome().length() > 50) {
 			throw new BadInfoException("Nome inválido, não pode ser nulo e deve ter no máximo 50 caracteres!");
 		}
+		//Verifica preço
+		if(!(produto.getPreco() > 0)) {
+			throw new BadInfoException("Preço inválido, deve ser maior que 0");
+		}
+		//Verifica peso
+		if(!(produto.getPeso() > 0)) {
+			throw new BadInfoException("Peso inválido, deve ser maior que 0");
+		}
+		//Verifica tipo
+		if(produto.getTipo() == null || produto.getTipo().length() > 50) {
+			throw new BadInfoException("Tipo inválido, não pode ser nulo e deve ter no máximo 50 caracteres!");
+		}
 		
 		produtoDao.cadastrar(produto);
 	}//Cadastrar FIM
