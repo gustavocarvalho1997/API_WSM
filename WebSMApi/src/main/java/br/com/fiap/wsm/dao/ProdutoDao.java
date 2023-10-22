@@ -19,6 +19,7 @@ public class ProdutoDao implements IProdutoDao{
 	private static final String CADASTRAR = "INSERT INTO T_WSM_PRODUTO (ID_PRODUTO, NM_PRODUTO, PC_PRODUTO, PS_PRODUTO, TP_PRODUTO, ID_CATEGORIA) VALUES (SEQ_WSM_PRODUTO.NEXTVAL, ?, ?, ?, ?, ?)";
 	private static final String LISTAR = "SELECT * FROM T_WSM_PRODUTO ORDER BY ID_PRODUTO";
 	private static final String PESQ_ID = "SELECT * FROM T_WSM_PRODUTO WHERE ID_PRODUTO = ?";
+	private static final String ATUALIZAR = "UPDATE T_WSM_PRODUTO SET NM_PRODUTO = ?, PC_PRODUTO = ?, PS_PRODUTO = ?, TP_PRODUTO = ?, ID_CATEGORIA = ? WHERE ID_PRODUTO = ?";
 	// Construtor
 	public ProdutoDao(Connection conn) {
 		this.conn = conn;
@@ -81,8 +82,16 @@ public class ProdutoDao implements IProdutoDao{
 
 	//Atualizar INICIO
 	public void atualizar(Produto produto) throws SQLException, IdNotFoundException {
-		// TODO Auto-generated method stub
+		pesquisarPorId(produto.getId());
+		PreparedStatement stm = conn.prepareStatement(ATUALIZAR);
+		stm.setString(1, produto.getNome());
+		stm.setDouble(2, produto.getPreco());
+		stm.setDouble(3, produto.getPeso());
+		stm.setString(4, produto.getTipo());
+		stm.setInt(5, produto.getCategoria().getId());
+		stm.setInt(6, produto.getId());
 		
+		stm.executeUpdate();
 	}
 
 	public void deletar(int id) throws SQLException, IdNotFoundException {
