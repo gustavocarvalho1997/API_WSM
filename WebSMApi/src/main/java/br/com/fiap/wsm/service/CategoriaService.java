@@ -20,6 +20,7 @@ public class CategoriaService {
 	public CategoriaService() throws ClassNotFoundException, SQLException {
 		Connection conn = ConnectionFactory.getConnection();
 		categoriaDao = new CategoriaDao(conn);
+		produtoService = new ProdutoService();
 	}
 
 	//Cadastrar INICIO
@@ -43,11 +44,14 @@ public class CategoriaService {
 	}//pesquisarPorId FIM
 	
 	//Atualizar INICIO
-	public void atualizar(Categoria categoria) throws SQLException, IdNotFoundException {
+	public void atualizar(Categoria categoria) throws SQLException, IdNotFoundException, BadInfoException {
 		Categoria modelo = categoriaDao.pesquisarPorId(categoria.getId());
 		if(categoria.getNome() == null) {
 			categoria.setNome(modelo.getNome());
 		}	
+		if(categoria.getNome().length() > 30) {
+			throw new BadInfoException("O nome não pode exceder 30 caracteres!");
+		}
 		categoriaDao.atualizar(categoria);
 	}//Atualizar FIM
 	
