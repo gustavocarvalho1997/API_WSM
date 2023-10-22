@@ -1,6 +1,7 @@
 package br.com.fiap.wsm.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -38,10 +39,17 @@ public class ProdutoDao implements IProdutoDao{
 		return produto;
 	}//Parse FIM
 
+	//Cadastrar INICIO
 	public void cadastrar(Produto produto) throws SQLException {
-		// TODO Auto-generated method stub
+		PreparedStatement stm = conn.prepareStatement(CADASTRAR);
+		stm.setString(1, produto.getNome());
+		stm.setDouble(2, produto.getPreco());
+		stm.setDouble(3, produto.getPeso());
+		stm.setString(4, produto.getTipo());
+		stm.setInt(5, produto.getCategoria().getId());
 		
-	}
+		stm.executeUpdate();
+	}//Cadastrar FIM
 
 	public List<Produto> listar() throws SQLException {
 		// TODO Auto-generated method stub
