@@ -67,6 +67,22 @@ public class ProdutoService {
 	
 	//Atualizar INICIO
 	public void atualizar(Produto produto) throws SQLException, IdNotFoundException {
+		Produto modelo = produtoDao.pesquisarPorId(produto.getId());
+		if(produto.getNome() == null) {
+			produto.setNome(modelo.getNome());
+		}
+		if(produto.getPreco() == 0) {
+			produto.setPreco(modelo.getPreco());
+		}
+		if(produto.getPeso() == 0) {
+			produto.setPeso(modelo.getPeso());
+		}
+		if(produto.getTipo() == null) {
+			produto.setTipo(modelo.getTipo());
+		}
+		if(produto.getCategoria() == null) {
+			produto.setCategoria(modelo.getCategoria());
+		}
 		produtoDao.atualizar(produto);
 	}
 }//CLASS

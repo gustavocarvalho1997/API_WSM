@@ -10,6 +10,7 @@ import br.com.fiap.wsm.service.ProdutoService;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -66,4 +67,19 @@ public class ProdutoResource {
 		}
 	}
 	//PesquisarPorId FIM
+	
+	//Atualizar INICIO
+	@PUT
+	@Path("/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response atualizar(Produto produto, @PathParam("id") int id) throws SQLException {
+		try {
+			produto.setId(id);
+			service.atualizar(produto);
+			return Response.ok().build();
+		} catch (IdNotFoundException e) {
+			return Response.status(Status.NOT_FOUND).build();
+		}
+	}
+	//Atualizar FIM
 }//CLASS
