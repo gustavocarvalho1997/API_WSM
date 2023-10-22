@@ -20,6 +20,7 @@ public class ProdutoDao implements IProdutoDao{
 	private static final String LISTAR = "SELECT * FROM T_WSM_PRODUTO ORDER BY ID_PRODUTO";
 	private static final String PESQ_ID = "SELECT * FROM T_WSM_PRODUTO WHERE ID_PRODUTO = ?";
 	private static final String ATUALIZAR = "UPDATE T_WSM_PRODUTO SET NM_PRODUTO = ?, PC_PRODUTO = ?, PS_PRODUTO = ?, TP_PRODUTO = ?, ID_CATEGORIA = ? WHERE ID_PRODUTO = ?";
+	private static final String DELETAR = "DELETE FROM T_WSM_PRODUTO WHERE ID_PRODUTO = ?";
 	// Construtor
 	public ProdutoDao(Connection conn) {
 		this.conn = conn;
@@ -92,12 +93,14 @@ public class ProdutoDao implements IProdutoDao{
 		stm.setInt(6, produto.getId());
 		
 		stm.executeUpdate();
-	}
+	}//Atualizar FIM
 
+	//Deletar INICIO
 	public void deletar(int id) throws SQLException, IdNotFoundException {
-		// TODO Auto-generated method stub
+		pesquisarPorId(id);
+		PreparedStatement stm = conn.prepareStatement(DELETAR);
+		stm.setInt(1, id);
 		
-	}
-	
-	
+		stm.executeUpdate();
+	}//Deletar FIM
 }//CLASS

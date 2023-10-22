@@ -84,5 +84,5 @@ public class ProdutoService {
 			produto.setCategoria(modelo.getCategoria());
 		}
 		produtoDao.atualizar(produto);
-	}
+	}//Atualizar FIM
 }//CLASS
