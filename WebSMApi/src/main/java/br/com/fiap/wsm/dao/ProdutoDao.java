@@ -53,6 +53,7 @@ public class ProdutoDao implements IProdutoDao{
 		stm.executeUpdate();
 	}//Cadastrar FIM
 
+	//Listar INICIO
 	public List<Produto> listar() throws SQLException {
 		PreparedStatement stm = conn.prepareStatement(LISTAR);
 		ResultSet rs = stm.executeQuery();
@@ -63,12 +64,22 @@ public class ProdutoDao implements IProdutoDao{
 		}
 		return lista;
 	}
+	//Listar FIM
 
+	//PesquisarPorId INICIO
 	public Produto pesquisarPorId(int id) throws SQLException, IdNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		PreparedStatement stm = conn.prepareStatement(PESQ_ID);
+		stm.setInt(1, id);
+		ResultSet rs = stm.executeQuery();
+		if(!rs.next()) {
+			throw new IdNotFoundException("Produto não encontrado");
+		}
+		Produto produto = parse(rs);
+		
+		return produto;
+	}//pesquisarPorId FIM
 
+	//Atualizar INICIO
 	public void atualizar(Produto produto) throws SQLException, IdNotFoundException {
 		// TODO Auto-generated method stub
 		

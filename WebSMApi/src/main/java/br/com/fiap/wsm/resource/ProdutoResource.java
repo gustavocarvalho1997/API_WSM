@@ -28,6 +28,7 @@ public class ProdutoResource {
 		service = new ProdutoService();
 	}
 	
+	//Cadastrar INICIO
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response cadastrar(Produto produto, @Context UriInfo uriInfo) throws SQLException {
@@ -42,10 +43,13 @@ public class ProdutoResource {
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 	}
+	//Cadastrar FIM
 	
+	//Listar INICIO
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Produto> lista() throws SQLException{
 		return service.listar();
 	}
+	//Listar FIM
 }//CLASS
