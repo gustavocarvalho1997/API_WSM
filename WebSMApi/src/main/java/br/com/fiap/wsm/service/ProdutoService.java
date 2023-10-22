@@ -64,4 +64,9 @@ public class ProdutoService {
 		}
 		return p;
 	}//PesquisarPorId FIM
+	
+	//Atualizar INICIO
+	public void atualizar(Produto produto) throws SQLException, IdNotFoundException {
+		produtoDao.atualizar(produto);
+	}
 }//CLASS
