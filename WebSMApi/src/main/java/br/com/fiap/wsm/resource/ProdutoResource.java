@@ -1,14 +1,17 @@
 package br.com.fiap.wsm.resource;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import br.com.fiap.wsm.exception.BadInfoException;
 import br.com.fiap.wsm.exception.IdNotFoundException;
 import br.com.fiap.wsm.model.Produto;
 import br.com.fiap.wsm.service.ProdutoService;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -38,5 +41,11 @@ public class ProdutoResource {
 		} catch (BadInfoException e) {
 			return Response.status(Status.BAD_REQUEST).build();
 		}
+	}
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Produto> lista() throws SQLException{
+		return service.listar();
 	}
 }//CLASS
