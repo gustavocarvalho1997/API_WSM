@@ -80,6 +80,8 @@ public class ProdutoResource {
 			return Response.ok().build();
 		} catch (IdNotFoundException e) {
 			return Response.status(Status.NOT_FOUND).build();
+		} catch (BadInfoException e) {
+			return Response.status(Status.BAD_REQUEST).build();
 		}
 	}
 	//Atualizar FIM

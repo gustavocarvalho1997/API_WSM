@@ -24,8 +24,8 @@ public class ProdutoService {
 		categoriaDao = new CategoriaDao(conn);
 	}
 	
-	//Cadastrar INICIO
-	public void cadastrar(Produto produto) throws SQLException, IdNotFoundException, BadInfoException {
+	//VerificaIntegridade INICIO
+	private void verificaIntegridade(Produto produto) throws SQLException, IdNotFoundException, BadInfoException {
 		//Verifica se o id da categoria que será a FK existe na tabela
 		if(produto.getCategoria() != null) {
 			categoriaDao.pesquisarPorId(produto.getCategoria().getId());
@@ -46,7 +46,16 @@ public class ProdutoService {
 		if(produto.getTipo() == null || produto.getTipo().length() > 50) {
 			throw new BadInfoException("Tipo inválido, não pode ser nulo e deve ter no máximo 50 caracteres!");
 		}
-		
+		//Verifica categoria
+		if(produto.getCategoria() == null) {
+			throw new BadInfoException("Produto necessita ser categorizado");
+		}
+	}//VerificaIntegridade FIM
+	
+	//Cadastrar INICIO
+	public void cadastrar(Produto produto) throws SQLException, IdNotFoundException, BadInfoException {
+		// Verifica integridade dos dados a serem inseridos
+		verificaIntegridade(produto);
 		produtoDao.cadastrar(produto);
 	}//Cadastrar FIM
 	
@@ -78,7 +87,7 @@ public class ProdutoService {
 	}//PesquisarPorId FIM
 	
 	//Atualizar INICIO
-	public void atualizar(Produto produto) throws SQLException, IdNotFoundException {
+	public void atualizar(Produto produto) throws SQLException, IdNotFoundException, BadInfoException {
 		Produto modelo = produtoDao.pesquisarPorId(produto.getId());
 		if(produto.getNome() == null) {
 			produto.setNome(modelo.getNome());
@@ -95,6 +104,7 @@ public class ProdutoService {
 		if(produto.getCategoria() == null) {
 			produto.setCategoria(modelo.getCategoria());
 		}
+		verificaIntegridade(produto);
 		produtoDao.atualizar(produto);
 	}//Atualizar FIM
 	
