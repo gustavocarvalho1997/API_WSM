@@ -6,7 +6,7 @@ import java.util.List;
 import br.com.fiap.wsm.exception.IdNotFoundException;
 import br.com.fiap.wsm.model.Categoria;
 
-public interface ICadastrarDao {
+public interface ICategoriaDao {
 
 	//Cadastrar INICIO
 	void cadastrar(Categoria categoria) throws SQLException;//Cadastrar FIM

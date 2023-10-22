@@ -7,12 +7,11 @@ import java.util.List;
 import br.com.fiap.wsm.dao.CategoriaDao;
 import br.com.fiap.wsm.exception.IdNotFoundException;
 import br.com.fiap.wsm.factory.ConnectionFactory;
-import br.com.fiap.wsm.interfaces.ICadastrarDao;
 import br.com.fiap.wsm.model.Categoria;
 
 public class CategoriaService {
 	// Atributos
-	private ICadastrarDao categoriaDao;
+	private CategoriaDao categoriaDao;
 	
 	// Construtor
 	public CategoriaService() throws ClassNotFoundException, SQLException {
