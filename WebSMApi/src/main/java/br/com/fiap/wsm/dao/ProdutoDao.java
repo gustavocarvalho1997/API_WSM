@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.fiap.wsm.exception.IdNotFoundException;
@@ -16,7 +17,8 @@ public class ProdutoDao implements IProdutoDao{
 	private Connection conn;
 	// Statements
 	private static final String CADASTRAR = "INSERT INTO T_WSM_PRODUTO (ID_PRODUTO, NM_PRODUTO, PC_PRODUTO, PS_PRODUTO, TP_PRODUTO, ID_CATEGORIA) VALUES (SEQ_WSM_PRODUTO.NEXTVAL, ?, ?, ?, ?, ?)";
-	
+	private static final String LISTAR = "SELECT * FROM T_WSM_PRODUTO ORDER BY ID_PRODUTO";
+	private static final String PESQ_ID = "SELECT * FROM T_WSM_PRODUTO WHERE ID_PRODUTO = ?";
 	// Construtor
 	public ProdutoDao(Connection conn) {
 		this.conn = conn;
@@ -52,8 +54,14 @@ public class ProdutoDao implements IProdutoDao{
 	}//Cadastrar FIM
 
 	public List<Produto> listar() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement stm = conn.prepareStatement(LISTAR);
+		ResultSet rs = stm.executeQuery();
+		List<Produto> lista = new ArrayList<>();
+		while(rs.next()) {
+			Produto p = parse(rs);
+			lista.add(p);
+		}
+		return lista;
 	}
 
 	public Produto pesquisarPorId(int id) throws SQLException, IdNotFoundException {
