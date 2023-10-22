@@ -54,4 +54,14 @@ public class ProdutoService {
 		}//FOR PRODUTO
 		return listaProduto;
 	}//Listar FIM
+	
+	//PesquisarPorId INICIO
+	public Produto pesquisarPorId(int id) throws SQLException, IdNotFoundException {
+		Produto p = produtoDao.pesquisarPorId(id);
+		if(p.getCategoria() != null) {
+			Categoria c = categoriaDao.pesquisarPorId(p.getCategoria().getId());
+			p.setCategoria(c);
+		}
+		return p;
+	}//PesquisarPorId FIM
 }//CLASS
