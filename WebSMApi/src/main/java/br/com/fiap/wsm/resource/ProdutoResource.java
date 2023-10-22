@@ -8,6 +8,7 @@ import br.com.fiap.wsm.exception.IdNotFoundException;
 import br.com.fiap.wsm.model.Produto;
 import br.com.fiap.wsm.service.ProdutoService;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
@@ -82,4 +83,16 @@ public class ProdutoResource {
 		}
 	}
 	//Atualizar FIM
+	
+	//Deletar INICIO
+	@DELETE
+	@Path("/{id}")
+	public Response remover(@PathParam("id") int id) throws SQLException {
+		try {
+			service.deletar(id);
+			return Response.noContent().build();
+		} catch (IdNotFoundException e) {
+			return Response.status(Status.NOT_FOUND).build();
+		}
+	}//Deletar FIM
 }//CLASS
