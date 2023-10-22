@@ -3,6 +3,7 @@ package br.com.fiap.wsm.resource;
 import java.sql.SQLException;
 import java.util.List;
 
+import br.com.fiap.wsm.exception.BadInfoException;
 import br.com.fiap.wsm.exception.IdNotFoundException;
 import br.com.fiap.wsm.model.Categoria;
 import br.com.fiap.wsm.service.CategoriaService;
@@ -34,10 +35,15 @@ public class CategoriaResource {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response cadastrar(Categoria categoria, @Context UriInfo uriInfo) throws ClassNotFoundException, SQLException {
-		service.cadastrar(categoria);
-		UriBuilder builder = uriInfo.getAbsolutePathBuilder();
-		builder.path(Integer.toString(categoria.getId()));
-		return Response.created(builder.build()).build();
+		try {
+			service.cadastrar(categoria);
+			UriBuilder builder = uriInfo.getAbsolutePathBuilder();
+			builder.path(Integer.toString(categoria.getId()));
+			return Response.created(builder.build()).build();
+		} catch (BadInfoException e) {
+			return Response.status(Status.BAD_REQUEST).build();
+		}
+		
 	}//Cadastrar FIM
 	
 	//Listar INICIO
@@ -82,6 +88,8 @@ public class CategoriaResource {
 			return Response.noContent().build();
 		} catch (IdNotFoundException e) {
 			return Response.status(Status.NOT_FOUND).build();
+		} catch (BadInfoException e) {
+			return Response.status(Status.BAD_REQUEST).build();
 		}
 	}//Deletar FIM
 }//CLASS
