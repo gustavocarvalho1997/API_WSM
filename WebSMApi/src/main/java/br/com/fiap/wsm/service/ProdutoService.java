@@ -85,4 +85,9 @@ public class ProdutoService {
 		}
 		produtoDao.atualizar(produto);
 	}//Atualizar FIM
+	
+	//Deletar INICIO
+	public void deletar(int id) throws SQLException, IdNotFoundException {
+		produtoDao.deletar(id);
+	}//Deletar FIM
 }//CLASS
