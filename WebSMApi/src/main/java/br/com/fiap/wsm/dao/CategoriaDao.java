@@ -35,7 +35,6 @@ public class CategoriaDao implements ICategoriaDao {
 	}//Parse FIM
 	
 	//Cadastrar INICIO
-	@Override
 	public void cadastrar(Categoria categoria) throws SQLException {
 		PreparedStatement stm = conn.prepareStatement(CADASTRAR);
 		stm.setString(1, categoria.getNome());
@@ -45,7 +44,6 @@ public class CategoriaDao implements ICategoriaDao {
 	}//Cadastrar FIM
 	
 	//Listar INICIO
-	@Override
 	public List<Categoria> listar() throws SQLException {
 		PreparedStatement stm = conn.prepareStatement(LISTAR);
 		ResultSet rs = stm.executeQuery();
@@ -58,7 +56,6 @@ public class CategoriaDao implements ICategoriaDao {
 	}//Listar FIM
 	
 	//pesquisarPorId INICIO
-	@Override
 	public Categoria pesquisarPorId(int id) throws SQLException, IdNotFoundException {
 		PreparedStatement stm = conn.prepareStatement(PESQ_ID);
 		stm.setInt(1, id);
@@ -71,7 +68,6 @@ public class CategoriaDao implements ICategoriaDao {
 	}//pesquisarPorId FIM
 	
 	//Atualizar INICIO
-	@Override
 	public void atualizar(Categoria categoria) throws SQLException, IdNotFoundException {
 		pesquisarPorId(categoria.getId());
 		PreparedStatement stm = conn.prepareStatement(ATUALIZAR);
@@ -83,7 +79,6 @@ public class CategoriaDao implements ICategoriaDao {
 	}//Atualizar FIM
 	
 	//Deletar INICIO
-	@Override
 	public void deletar(int id) throws SQLException, IdNotFoundException {
 		pesquisarPorId(id);
 		PreparedStatement stm = conn.prepareStatement(DELETAR);
